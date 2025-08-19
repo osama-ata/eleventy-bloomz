@@ -2,21 +2,8 @@
 layout: layouts/base.njk
 templateClass: tmpl-home
 ---
-{{ content | safe }}
-
-<h2>Legal Concepts</h2>
-{% set legal_concepts = collections['legal-concept'] %}
-{% if legal_concepts and legal_concepts.length %}
-  <ul class="postlist">
-  {%- for concept in legal_concepts | reverse | slice(0, 10) -%}
-    <li class="postlist-item">
-      <a href="{{ concept.url | url }}" class="postlist-link">{{ concept.data.title }}</a>
-    </li>
-  {%- endfor -%}
-  </ul>
-{% else %}
-  <p>No legal concepts found.</p>
-{% endif %}
+{{ content | safe
+ }}
 
 <h2>Recent Posts</h2>
 {% set recent_posts = collections.post | reverse | slice(0, 3) %}

@@ -4,7 +4,7 @@ title: About
 templateClass: tmpl-post
 eleventyNavigation:
   key: About
-  order: 4
+  order: 10
 ---
 
 I am a person that writes stuff.

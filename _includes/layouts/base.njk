@@ -31,8 +31,21 @@
     <main{% if templateClass %} class="{{ templateClass }}"{% endif %}>
       {{ content | safe }}
     </main>
-
-    <footer>🪴 Grown with 💚 from an <a href="https://github.com/wikibonsai/eleventy-bloomz">eleventy-bloomz</a></footer>
+<hr>
+    <footer class="site-footer">
+      <p>Contracts Wiki is powered by <a href="https://github.com/wikibonsai" rel="noopener">wikibonsai</a></p>
+      <p class="footer-links">
+        <a href="{{ metadata.feed.path | url }}">Atom feed</a>
+        &nbsp;&middot;&nbsp;
+        <a href="{{ metadata.jsonfeed.path | url }}">JSON feed</a>
+        &nbsp;&middot;&nbsp;
+        <a href="{{ '/sitemap.xml' | url }}">Sitemap</a>
+        &nbsp;&middot;&nbsp;
+        <a href="{{ '/tags/' | url }}">Tags</a>
+        &nbsp;&middot;&nbsp;
+        <a href="{{ '/' | url }}">Home</a>
+      </p>
+    </footer>
 
     <!-- Current page: {{ page.url | url }} -->
   </body>

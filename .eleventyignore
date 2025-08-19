@@ -1,1 +1,13 @@
 README.md
+node_modules/
+_site/
+.vscode/
+.idea/
+*.swp
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+coverage/
+dist/
+*.env
+.DS_Store

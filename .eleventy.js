@@ -25,6 +25,9 @@ module.exports = function (eleventyConfig) {
   // Copy the `img` and `css` folders to the output
   eleventyConfig.addPassthroughCopy("img");
   eleventyConfig.addPassthroughCopy("css");
+  // Copy some root-level static files used by hosting platforms
+  eleventyConfig.addPassthroughCopy(".nojekyll");
+  eleventyConfig.addPassthroughCopy("netlify.toml");
 
   // Add plugins
   eleventyConfig.addPlugin(pluginRss);
@@ -63,6 +66,9 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("filterTagList", filterTagList);
 
+  // Enable deep merge for `_data` objects (useful for merging site-wide data)
+  eleventyConfig.setDataDeepMerge(true);
+
   // Create an array of all tags
   eleventyConfig.addCollection("tagList", function (collection) {
     let tagSet = new Set();
@@ -80,9 +86,13 @@ module.exports = function (eleventyConfig) {
   ////
   // markdown wikirefs
 
-  // Customize Markdown library and settings:
-  let markdownLibrary;
-  markdownLibrary = markdownIt({
+  // Customize Markdown library and settings.
+  // Build the markdown-it instance first (without the wikirefs plugin), then
+  // compute wikirefs options using that instance, and finally attach the
+  // wikirefs plugin. This avoids passing an undefined `markdownLibrary` into
+  // buildWikirefsOpts and ensures `markdownLibrary.render()` is available
+  // to the `resolveEmbedContent` implementation below.
+  let markdownLibrary = markdownIt({
     html: true,
     linkify: true,
   })
@@ -95,60 +105,60 @@ module.exports = function (eleventyConfig) {
       }),
       level: [1, 2, 3, 4],
       slugify: eleventyConfig.getFilter("slugify")
-    }).use(markdownItCaml, {
-      //
-    }).use(markdownItWikiRefs, {
-      ...buildWikirefsOpts(markdownLibrary),
-      // wikiembed note:
-      // - 'markdownLibrary' _must_ be declared before assigning it to the markdown-it
-      //   instance, and before the 'resolveEmbedContent' function usage.
-      // - the 'resolveEmbedContent' function definition needs to be near the
-      //   'markdownLibrary' instance so 'markdownLibrary.render()' can be recursively called
-      resolveEmbedContent: (env, fname) => {
-        // markdown-only
-        if (wikirefs.isMedia(fname)) { return; }
-        // cycle detection
-        if (!env.cycleStack) {
-          env.cycleStack = [];
-        } else {
-          if (env.cycleStack.includes(fname)) {
-            delete env.cycleStack;
-            return '♻️ cycle detected';
-          }
-        }
-        env.cycleStack.push(fname);
-        // get content
-        let htmlContent;
-        let doc = env.collections.all.find((doc) => {
-          return (fname === path.basename(doc.data.page.inputPath).replace(/\.[^/.]+$/, ''));
-        });
-
-        if (!doc) {
-          return `<p>Unable to embed <code>${fname}</code>: file not found.</p>`;
-        }
-
-        // default case
-        try {
-          const mkdnContent = fs.readFileSync(doc.inputPath, { encoding: 'utf8', flag: 'r' });
-          if (mkdnContent === undefined) {
-            htmlContent = undefined;
-          } else if (mkdnContent.length === 0) {
-            htmlContent = '';
-          } else {
-            // strip yaml frontmatter
-            const res = matter(mkdnContent);
-            // reset attrs for embeds
-            env.attrs = {};
-            htmlContent = markdownLibrary.render(res.content, env);
-          }
-          // zombie (or error) case
-        } catch (e) {
-          console.warn(e);
-        }
-        delete env.cycleStack;
-        return htmlContent;
-      },
+    })
+    .use(markdownItCaml, {
+      // options if needed
     });
+
+  // Now that `markdownLibrary` exists, build wikirefs options and attach the plugin.
+  const wikirefsOpts = buildWikirefsOpts(markdownLibrary);
+  markdownLibrary.use(markdownItWikiRefs, {
+    ...wikirefsOpts,
+    resolveEmbedContent: (env, fname) => {
+      // markdown-only
+      if (wikirefs.isMedia(fname)) { return; }
+      // cycle detection
+      if (!env.cycleStack) {
+        env.cycleStack = [];
+      } else {
+        if (env.cycleStack.includes(fname)) {
+          delete env.cycleStack;
+          return '♻️ cycle detected';
+        }
+      }
+      env.cycleStack.push(fname);
+      // get content
+      let htmlContent;
+      let doc = env.collections.all.find((doc) => {
+        return (fname === path.basename(doc.data.page.inputPath).replace(/\.[^/.]+$/, ''));
+      });
+
+      if (!doc) {
+        return `<p>Unable to embed <code>${fname}</code>: file not found.</p>`;
+      }
+
+      // default case
+      try {
+        const mkdnContent = fs.readFileSync(doc.inputPath, { encoding: 'utf8', flag: 'r' });
+        if (mkdnContent === undefined) {
+          htmlContent = undefined;
+        } else if (mkdnContent.length === 0) {
+          htmlContent = '';
+        } else {
+          // strip yaml frontmatter
+          const res = matter(mkdnContent);
+          // reset attrs for embeds
+          env.attrs = {};
+          htmlContent = markdownLibrary.render(res.content, env);
+        }
+        // zombie (or error) case
+      } catch (e) {
+        console.warn(e);
+      }
+      delete env.cycleStack;
+      return htmlContent;
+    },
+  });
   eleventyConfig.setLibrary("md", markdownLibrary);
 
   // collections
@@ -160,6 +170,17 @@ module.exports = function (eleventyConfig) {
     // get unsorted items
     return collectionApi.getFilteredByGlob(constants.ENTRIES_GLOB);
   });
+
+  // Watch extra folders during `eleventy --serve` so changes to scripts/helpers
+  // and the wikibonsai logic trigger reloads.
+  eleventyConfig.addWatchTarget("scripts/");
+  eleventyConfig.addWatchTarget("wikibonsai/");
+
+  // Simple shortcode for the current year (useful in footer layouts)
+  eleventyConfig.addShortcode('year', () => `${new Date().getFullYear()}`);
+
+  // Layout alias convenience
+  eleventyConfig.addLayoutAlias('default', 'layouts/base.njk');
 
   // semtree bonsai
   // attach to global data

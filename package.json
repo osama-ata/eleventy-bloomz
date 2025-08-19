@@ -1,15 +1,15 @@
 {
-  "name": "eleventy-bloomz",
+  "name": "contracts-wiki",
   "version": "0.0.2",
   "description": "A starter project for a WikiBonsai digital garden using the Eleventy static site generator.",
   "license": "MIT",
   "author": {
     "name": "manunamz",
-    "email": "manuanmz@pm.me"
+    "email": "my@email.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wikibonsai/eleventy-bloomz"
+    "url": "https://github.com/wikibonsai/legal-concepts"
   },
   "scripts": {
     "build": "npx @11ty/eleventy",

@@ -1,4 +1,4 @@
-# Eleventy-Bloomz
+# Contracts Wiki
 
 [![A WikiBonsai Project](https://img.shields.io/badge/%F0%9F%8E%8B-A%20WikiBonsai%20Project-brightgreen)](https://github.com/wikibonsai/wikibonsai)
 
@@ -9,7 +9,7 @@
 
 An [11ty template](https://github.com/11ty/eleventy-base-blog) with [WikiBonsai](https://github.com/wikibonsai/wikibonsai) support.
 
-You can see the live demo [here](https://eleventy-bloomz.netlify.app/).
+You can see the live demo [here](https://legal-concepts.netlify.app/).
 
 🌸 Share bloomz from your [🎋 WikiBonsai](https://github.com/wikibonsai/wikibonsai) digital garden.
 
@@ -18,7 +18,7 @@ You can see the live demo [here](https://eleventy-bloomz.netlify.app/).
 ### 1. Clone this Repository
 
 ```
-git clone https://github.com/wikibonsai/eleventy-bloomz.git my-blog-name
+git clone https://github.com/wikibonsai/legal-concepts.git my-blog-name
 ```
 
 ### 2. Navigate to the directory
@@ -61,7 +61,7 @@ DEBUG=* npx @11ty/eleventy
 
 ## 🪴 Project Structure
 
-Inside of your Eleventy-Bloomz project, you'll see the following folders and files:
+Inside of your legal-concepts project, you'll see the following folders and files:
 
 ```text
 ├── _data/

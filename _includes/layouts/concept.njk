@@ -1,0 +1,18 @@
+---
+layout: layouts/base.njk
+templateClass: tmpl-post
+---
+
+<div class="concept-content">
+
+  {% include "bread-crumbs.njk" %}
+
+  <h1>{{ title }}</h1>
+
+  <hr>
+
+  {{ content | safe }}
+
+</div>
+
+{% include "back-refs.njk" %}

@@ -1,52 +1,51 @@
-# Copilot Instructions for Eleventy-Bloomz
-
-## Project Overview
-
-This is an [11ty](https://www.11ty.dev/) static site template extended with [WikiBonsai](https://github.com/wikibonsai/wikibonsai) features. It supports digital garden-style content, custom layouts, and blog post collections. The codebase is organized for extensibility and content-driven workflows.
-
-## Key Architecture & Patterns
-
-- **Content Source**: All site content lives in `content/` (markdown, njk, etc.), with posts in `posts/` and pages in `about/`, `entries/`, etc.
-- **Layouts & Includes**: Nunjucks templates in `_includes/layouts/` define site structure. Reusable components (e.g., `postlist.njk`) are in `_includes/`.
-- **Global Data**: Shared site metadata is in `_data/metadata.json` and used in templates like `feed/feed.njk`.
-- **Static Assets**: `css/` and `img/` are copied to output via Eleventy passthrough config in `.eleventy.js`.
-- **Custom Logic**: The `wikibonsai/` directory contains custom JS modules for WikiBonsai features (e.g., `wikirefs.js`, `semtree.js`).
-
-## Developer Workflows
-
-- **Install dependencies**: `npm install`
-- **Build site**: `npm run build` (output to `./dist/`)
-- **Local preview**: `npm run serve` (dev server at `localhost:4321`)
-- **Watch for changes**: `npm run watch`
-- **Debug mode**: `npm run debug`
-- **Benchmarks**: `npm run bench`
-- **Direct Eleventy commands**: Use `npx @11ty/eleventy [options]` for advanced usage (see README for examples)
-
-## Project-Specific Conventions
-
-- **Posts**: Any file with the `post` tag is treated as a blog post, regardless of location or format.
-- **Navigation**: Use the `eleventyNavigation` key in front matter to add pages to the top-level nav.
-- **Template Formats**: Supported formats are configured in `.eleventy.js` (`templateFormats`).
-- **Feed Generation**: The feed templates (`feed/feed.njk`) use global data and custom logic for RSS/JSON feeds.
-- **Custom JS**: Extend WikiBonsai features by editing or adding modules in `wikibonsai/`.
-
-## Integration Points
-
-- **Eleventy**: Core build and templating engine.
-- **WikiBonsai**: Digital garden features via custom JS modules.
-- **Netlify**: Deployment configuration in `netlify.toml`.
-
-## Examples
-
-- To add a new page: create a markdown file in `content/about/` and add `eleventyNavigation` in front matter.
-- To add a new post: create a markdown file in `content/posts/` with the `post` tag.
-- To extend layouts: edit or add templates in `_includes/layouts/`.
-- To add custom logic: create or update JS modules in `wikibonsai/` and reference them in `.eleventy.js` if needed.
-
-## References
-
-- Key files: `.eleventy.js`, `_data/metadata.json`, `_includes/layouts/`, `wikibonsai/`, `netlify.toml`, `package.json`, `README.md`
+# Copilot Instructions for legal-concepts
 
 ---
 
-If any conventions or workflows are unclear, please provide feedback so this guide can be improved for future AI agents.
+# Copilot instructions — eleventy-bloomz
+
+Summary: Eleventy site extended with WikiBonsai helpers. Edit source files under `content/`, `_includes/`, and `wikibonsai/`; do not edit `_site/` (generated).
+
+Architecture (brief)
+
+- Source content: `content/` holds pages/posts (Markdown/Nunjucks front matter). Eleventy transforms these into `_site/`.
+- Templates: `_includes/layouts/` and `_includes/` contain Nunjucks layouts (e.g. `entry.njk`, `post.njk`) used by many pages—change here for global layout updates.
+- Logic: `wikibonsai/` contains site-specific JS helpers (`wikirefs.js`, `semtree.js`, `const.js`) used from templates and scripts.
+
+Developer workflows (commands to use)
+
+- Install deps: `npm install`
+- Build (production): `npm run build` (produces `_site/` in this repo)
+- Dev server / preview: `npm run serve` (serves built `_site/` on localhost:4321)
+- Watch for edits: `npm run watch`
+- Run Eleventy directly: `npx @11ty/eleventy --config .eleventy.js`
+- Content helpers: `node scripts/populate_content.js`, `node scripts/generate_bonsai_index.js`; `fix_json.py` fixes small JSON issues.
+
+Conventions & examples
+
+- Posts: tag a file with `post` in front matter to treat it as a blog post. Example front matter: `---\ntitle: Foo\ntags: [post]\n---`
+- Navigation: use `eleventyNavigation` in front matter to include a page in top nav.
+- WikiBonsai markdown: templates and content use wiki-style attributes/embeds. See `.github/instructions/entry.instructions.md` for usage samples like `:prefixed-wikiattr::[[wikirefs]]` and `![[test-render]]`.
+
+Integration & important files to inspect
+
+- `.eleventy.js` — build config, passthroughs, and template formats
+- `wikibonsai/` — custom processors: modify here to change semantic-tree or wikirefs output
+- `_data/metadata.json`, `_data/legal_concepts.json` — global data consumed by templates and feeds
+- `_includes/layouts/` & `_includes/` — components and layouts
+- `content/` — canonical content source
+- `scripts/` and `fix_json.py` — automation and content population helpers
+- `netlify.toml` — Netlify deploy settings
+
+AI agent rules (practical)
+
+- Never modify files under `_site/` — they are generated.
+- Prefer minimal, localized changes; update templates when a rendering change is needed across pages.
+- After edits that affect rendering, run `npm run build` and spot-check `_site/` changes.
+- When adding JS in `wikibonsai/`, keep exports small and document usage in a short comment and update any templates that consume them.
+
+If you want, I can also add a short example PR template and a sample front-matter checklist for new content — tell me which to include.
+
+---
+
+- To add custom logic: create or update JS modules in `wikibonsai/` and reference them in `.eleventy.js` if needed.

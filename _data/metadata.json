@@ -1,21 +1,21 @@
 {
-  "title": "eleventy-bloomz",
-  "url": "https://eleventy-bloomz.netlify.app/",
+  "title": "Contracts Wiki",
+  "url": "https://legal-concepts.netlify.app/",
   "language": "en",
   "description": "Just keep tending...",
   "feed": {
     "subtitle": "Just keep tending...",
     "filename": "feed.xml",
     "path": "/feed/feed.xml",
-    "id": "https://eleventy-bloomz.netlify.app/"
+    "id": "https://legal-concepts.netlify.app/"
   },
   "jsonfeed": {
     "path": "/feed/feed.json",
-    "url": "https://https://eleventy-bloomz.netlify.app/feed/feed.json"
+    "url": "https://https://legal-concepts.netlify.app/feed/feed.json"
   },
   "author": {
-    "name": "Your Name Here",
-    "email": "youremailaddress@example.com",
-    "url": "https://https://eleventy-bloomz.netlify.app/about-me/"
+    "name": "Osama Ata",
+    "email": "me@example.com",
+    "url": "https://https://legal-concepts.netlify.app/about-me/"
   }
 }
