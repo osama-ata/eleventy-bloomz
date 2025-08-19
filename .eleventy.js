@@ -21,7 +21,7 @@ const buildBonsai = require('./wikibonsai/semtree');
 const buildWikirefsOpts = require('./wikibonsai/wikirefs');
 
 
-module.exports = function(eleventyConfig) {
+module.exports = function (eleventyConfig) {
   // Copy the `img` and `css` folders to the output
   eleventyConfig.addPassthroughCopy("img");
   eleventyConfig.addPassthroughCopy("css");
@@ -32,20 +32,20 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginNavigation);
 
   eleventyConfig.addFilter("readableDate", dateObj => {
-    return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat("dd LLL yyyy");
+    return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat("dd LLL yyyy");
   });
 
   // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#valid-date-string
   eleventyConfig.addFilter('htmlDateString', (dateObj) => {
-    return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('yyyy-LL-dd');
+    return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat('yyyy-LL-dd');
   });
 
   // Get the first `n` elements of a collection.
   eleventyConfig.addFilter("head", (array, n) => {
-    if(!Array.isArray(array) || array.length === 0) {
+    if (!Array.isArray(array) || array.length === 0) {
       return [];
     }
-    if( n < 0 ) {
+    if (n < 0) {
       return array.slice(n);
     }
 
@@ -64,7 +64,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("filterTagList", filterTagList);
 
   // Create an array of all tags
-  eleventyConfig.addCollection("tagList", function(collection) {
+  eleventyConfig.addCollection("tagList", function (collection) {
     let tagSet = new Set();
     collection.getAll().forEach(item => {
       (item.data.tags || []).forEach(tag => tagSet.add(tag));
@@ -86,72 +86,77 @@ module.exports = function(eleventyConfig) {
     html: true,
     linkify: true,
   })
-  .use(markdownItFootNote, {})
-  .use(markdownItAnchor, {
-    permalink: markdownItAnchor.permalink.ariaHidden({
-      placement: "after",
-      class: "direct-link",
-      symbol: "#"
-    }),
-    level: [1,2,3,4],
-    slugify: eleventyConfig.getFilter("slugify")
-  }).use(markdownItCaml, {
-    // 
-  }).use(markdownItWikiRefs, {
-    ...buildWikirefsOpts(markdownLibrary),
-    // wikiembed note:
-    // - 'markdownLibrary' _must_ be declared before assigning it to the markdown-it
-    //   instance, and before the 'resolveEmbedContent' function usage.
-    // - the 'resolveEmbedContent' function definition needs to be near the
-    //   'markdownLibrary' instance so 'markdownLibrary.render()' can be recursively called
-    resolveEmbedContent: (env, fname) => {
-      // markdown-only
-      if (wikirefs.isMedia(fname)) { return; }
-      // cycle detection
-      if (!env.cycleStack) {
-        env.cycleStack = [];
-      } else {
-        if (env.cycleStack.includes(fname)) {
-          delete env.cycleStack;
-          return '♻️ cycle detected';
-        }
-      }
-      env.cycleStack.push(fname);
-      // get content
-      let htmlContent;
-      let doc = env.collections.all.find((doc) => {
-        return (fname === path.basename(doc.data.page.inputPath).replace(/\.[^/.]+$/, ''));
-      });
-      // default case
-      try {
-        const mkdnContent = fs.readFileSync(doc.inputPath, { encoding: 'utf8', flag: 'r' });
-        if (mkdnContent === undefined) {
-          htmlContent = undefined;
-        } else if (mkdnContent.length === 0) {
-          htmlContent = '';
+    .use(markdownItFootNote, {})
+    .use(markdownItAnchor, {
+      permalink: markdownItAnchor.permalink.ariaHidden({
+        placement: "after",
+        class: "direct-link",
+        symbol: "#"
+      }),
+      level: [1, 2, 3, 4],
+      slugify: eleventyConfig.getFilter("slugify")
+    }).use(markdownItCaml, {
+      //
+    }).use(markdownItWikiRefs, {
+      ...buildWikirefsOpts(markdownLibrary),
+      // wikiembed note:
+      // - 'markdownLibrary' _must_ be declared before assigning it to the markdown-it
+      //   instance, and before the 'resolveEmbedContent' function usage.
+      // - the 'resolveEmbedContent' function definition needs to be near the
+      //   'markdownLibrary' instance so 'markdownLibrary.render()' can be recursively called
+      resolveEmbedContent: (env, fname) => {
+        // markdown-only
+        if (wikirefs.isMedia(fname)) { return; }
+        // cycle detection
+        if (!env.cycleStack) {
+          env.cycleStack = [];
         } else {
-          // strip yaml frontmatter
-          const res = matter(mkdnContent);
-          // reset attrs for embeds
-          env.attrs = {};
-          htmlContent = markdownLibrary.render(res.content, env);
+          if (env.cycleStack.includes(fname)) {
+            delete env.cycleStack;
+            return '♻️ cycle detected';
+          }
         }
-      // zombie (or error) case
-      } catch (e) {
-        console.warn(e);
-      }
-      delete env.cycleStack;
-      return htmlContent;
-    },
-  });
+        env.cycleStack.push(fname);
+        // get content
+        let htmlContent;
+        let doc = env.collections.all.find((doc) => {
+          return (fname === path.basename(doc.data.page.inputPath).replace(/\.[^/.]+$/, ''));
+        });
+
+        if (!doc) {
+          return `<p>Unable to embed <code>${fname}</code>: file not found.</p>`;
+        }
+
+        // default case
+        try {
+          const mkdnContent = fs.readFileSync(doc.inputPath, { encoding: 'utf8', flag: 'r' });
+          if (mkdnContent === undefined) {
+            htmlContent = undefined;
+          } else if (mkdnContent.length === 0) {
+            htmlContent = '';
+          } else {
+            // strip yaml frontmatter
+            const res = matter(mkdnContent);
+            // reset attrs for embeds
+            env.attrs = {};
+            htmlContent = markdownLibrary.render(res.content, env);
+          }
+          // zombie (or error) case
+        } catch (e) {
+          console.warn(e);
+        }
+        delete env.cycleStack;
+        return htmlContent;
+      },
+    });
   eleventyConfig.setLibrary("md", markdownLibrary);
 
   // collections
-  eleventyConfig.addCollection("index", function(collectionApi) {
+  eleventyConfig.addCollection("index", function (collectionApi) {
     // get unsorted items
     return collectionApi.getFilteredByGlob(constants.INDEX_GLOB);
   });
-  eleventyConfig.addCollection("entries", function(collectionApi) {
+  eleventyConfig.addCollection("entries", function (collectionApi) {
     // get unsorted items
     return collectionApi.getFilteredByGlob(constants.ENTRIES_GLOB);
   });
@@ -188,12 +193,12 @@ module.exports = function(eleventyConfig) {
   // Override Browsersync defaults (used only with --serve)
   eleventyConfig.setBrowserSyncConfig({
     callbacks: {
-      ready: function(err, browserSync) {
+      ready: function (err, browserSync) {
         const content_404 = fs.readFileSync('_site/404.html');
 
         browserSync.addMiddleware("*", (req, res) => {
           // Provides the 404 content without redirect.
-          res.writeHead(404, {"Content-Type": "text/html; charset=UTF-8"});
+          res.writeHead(404, { "Content-Type": "text/html; charset=UTF-8" });
           res.write(content_404);
           res.end();
         });
