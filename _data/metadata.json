@@ -1,21 +1,21 @@
 {
   "title": "Contracts Wiki",
-  "url": "https://legal-concepts.netlify.app/",
+  "url": "https://contracts-wiki.osamata.com/",
   "language": "en",
   "description": "Just keep tending...",
   "feed": {
     "subtitle": "Just keep tending...",
     "filename": "feed.xml",
     "path": "/feed/feed.xml",
-    "id": "https://legal-concepts.netlify.app/"
+    "id": "https://contracts-wiki.osamata.com/"
   },
   "jsonfeed": {
     "path": "/feed/feed.json",
-    "url": "https://https://legal-concepts.netlify.app/feed/feed.json"
+    "url": "https://https://contracts-wiki.osamata.com/feed/feed.json"
   },
   "author": {
     "name": "Osama Ata",
     "email": "me@example.com",
-    "url": "https://https://legal-concepts.netlify.app/about-me/"
+    "url": "https://https://contracts-wiki.osamata.com/about-me/"
   }
 }

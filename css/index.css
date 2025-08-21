@@ -62,7 +62,7 @@ html {
   overflow-y: scroll;
 }
 body {
-  max-width: 40em;
+  max-width: 90%;
 }
 
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
@@ -158,6 +158,18 @@ header {
   flex-wrap: wrap;
   align-items: center;
   padding: 1em;
+  justify-content: space-between; /* place .home left and .nav right */
+  text-align: left; /* fallback for non-flex contexts */
+  background-color: var(--color-gray-20); /* subtle accent from theme */
+}
+
+/* position the site title and nav to the left */
+.home {
+  margin: 0; /* reset default margin */
+  margin-right: 1rem; /* small gap between title and nav */
+}
+.nav {
+  margin-left: auto; /* push nav to the right end of the header */
 }
 .home-link {
   font-size: 1em; /* 16px /16 */
@@ -184,6 +196,17 @@ header {
 }
 .nav a[href][aria-current="page"] {
   text-decoration: underline;
+}
+
+/* site footer styling: center text and give a background accent from theme vars */
+.site-footer {
+  text-align: center;
+  background-color: var(--color-gray-20);
+  color: var(--text-color);
+  padding: 1rem 0;
+}
+.site-footer a {
+  color: var(--text-color-link);
 }
 
 /* Posts list */
@@ -312,7 +335,7 @@ h2 + .header-anchor {
   padding: 2em 1em 6em 1em;
   margin: 2em;
   border: 1px solid #ccc !important;
-  border-radius: 25px;
+  border-radius: 0px;
 }
 .title {
   color: #ccc;
@@ -346,16 +369,17 @@ h2 + .header-anchor {
 
 /* attrbox */
 aside.attrbox {
-  text-align: center;
+  text-align: left;
   border: 1px double #535353;
   color: #ccc;
-  border-radius: 25px;
+  border-radius: 0px;
   border-spacing: 1em;
   /* @noflip */
   margin: 0.5em;
   padding: 0.2em;
   /* @noflip */
   float: right;
+  width: 350px;
 }
 span.attrbox-title {
   margin: 0.5em;
@@ -369,7 +393,7 @@ dt {
   width: 100px;
   float: left;
   clear: left;
-  text-align: right;
+  text-align: left;
   font-weight: bold;
 }
 dt::after {

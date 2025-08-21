@@ -203,10 +203,10 @@ Lists:
 #### Weblink
 
 ```markdown
-[Weblink](https://legal-concepts.netlify.app)
+[Weblink](https://contracts-wiki.osamata.com)
 ```
 
-[Weblink](https://legal-concepts.netlify.app)
+[Weblink](https://contracts-wiki.osamata.com)
 
 #### Code Block
 

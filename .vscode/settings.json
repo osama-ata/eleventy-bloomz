@@ -1,0 +1,25 @@
+{
+  "[markdown]": {},
+  // Prevent extensions and VS Code search from scanning large external folders
+  // (this helps extensions like 'tendr' avoid indexing node_modules and reduces
+  // activation-time work that can trigger edge-case bugs).
+  "files.exclude": {
+    "**/.git": true,
+    "**/.cache": true,
+    "**/node_modules": true,
+    "**/_site": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/_site": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules": true,
+    "**/_site": true
+  },
+  "tendr.graph.ctrls.dim": "2d",
+  "tendr.graph.ctrls.fix.enabled": false,
+  "tendr.graph.ctrls.follow.enabled": true,
+  "tendr.attrs.engine": "caml",
+  "tendr.bonsai.root": "i.root"
+}

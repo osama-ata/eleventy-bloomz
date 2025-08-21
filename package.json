@@ -4,12 +4,13 @@
   "description": "A starter project for a WikiBonsai digital garden using the Eleventy static site generator.",
   "license": "MIT",
   "author": {
-    "name": "manunamz",
+    "name": "Osama Ata",
+    "url": "https://osamata.com",
     "email": "my@email.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wikibonsai/legal-concepts"
+    "url": "https://github.com/osama-ata/contracts-wiki"
   },
   "scripts": {
     "build": "npx @11ty/eleventy",
@@ -35,6 +36,7 @@
     "markdown-it-caml": "^0.0.2",
     "markdown-it-footnote": "^4.0.0",
     "markdown-it-wikirefs": "^0.0.3",
+    "marked-caml": "^0.0.2",
     "semtree": "^0.0.12",
     "wikirefs": "^0.0.7"
   }

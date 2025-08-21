@@ -9,7 +9,7 @@
 
 An [11ty template](https://github.com/11ty/eleventy-base-blog) with [WikiBonsai](https://github.com/wikibonsai/wikibonsai) support.
 
-You can see the live demo [here](https://legal-concepts.netlify.app/).
+You can see the live demo [here](https://contracts-wiki.osamata.com/).
 
 🌸 Share bloomz from your [🎋 WikiBonsai](https://github.com/wikibonsai/wikibonsai) digital garden.
 
@@ -18,7 +18,7 @@ You can see the live demo [here](https://legal-concepts.netlify.app/).
 ### 1. Clone this Repository
 
 ```
-git clone https://github.com/wikibonsai/legal-concepts.git my-blog-name
+git clone https://github.com/osama-ata/contracts-wiki.git my-blog-name
 ```
 
 ### 2. Navigate to the directory
@@ -53,18 +53,12 @@ Or build automatically when a template changes:
 npx @11ty/eleventy --watch
 ```
 
-Or in debug mode:
-
 ```
 DEBUG=* npx @11ty/eleventy
 ```
 
-## 🪴 Project Structure
-
 Inside of your legal-concepts project, you'll see the following folders and files:
 
-```text
-├── _data/
 ├── _includes/
 │   └── layouts/
 ├── content/
@@ -75,6 +69,7 @@ Inside of your legal-concepts project, you'll see the following folders and file
 ├── .eleventyignore
 ├── README.md
 └── package.json
+
 ```
 
 - `about/index.md` shows how to add a content page.

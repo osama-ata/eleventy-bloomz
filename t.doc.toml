@@ -1,0 +1,17 @@
+[default]
+path = "content/entries/"
+color = "#31AF31"
+
+[index]
+path = "content/index/"
+prefix = "i."
+emoji = "🗄"
+color = "#F0C61F"
+# emoji  = "🪵" ; bonsai.trunk
+root = "bonsai" # index-specific property
+
+[entry]
+path = "content/entries/"
+emoji = "🏷"
+color = "#31AF31"
+# emoji  = "🍃"; bonsai.leaf

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://contracts-wiki.osamata.com/sitemap.xml

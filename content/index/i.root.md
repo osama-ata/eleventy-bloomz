@@ -1,0 +1,38 @@
+: id    :: HwLzFLO8ZLzuGFIetgPcP
+: ctime :: 2025-08-21 15:25:47 +03:00
+: mtime :: 2025-08-21 15:58:37 +03:00
+: vtime :: 2025-08-21 15:58:37 +03:00
+: title :: root
+
+- [[legal-concepts]]
+  - [[the-concept-of-a-non-delegable-duty-of-care]]
+  - [[the-concept-of-constructive-acceleration-of-works]]
+  - [[the-concept-of-pay-when-paid-and-its-statutory-prohibition]]
+  - [[the-cost-of-cure-vs-loss-of-amenity-principle-ruxley-v-forsyth]]
+  - [[the-doctrine-of-frustration-of-contract]]
+  - [[the-doctrine-of-incorporation-of-terms-by-reference]]
+  - [[the-doctrine-of-privity-of-contract-and-its-statutory-exceptions]]
+  - [[the-doctrine-of-rectification-for-common-mistake]]
+  - [[the-doctrine-of-subrogation-in-insurance-matters]]
+  - [[the-doctrine-of-total-failure-of-consideration]]
+  - [[the-doctrine-of-unconscionability-in-contractual-bargains]]
+  - [[the-doctrine-of-vicarious-liability]]
+  - [[the-doctrine-of-waiver-waiver-by-election-and-waiver-by-estoppel]]
+  - [[the-economic-torts-eg-inducing-breach-of-contract]]
+  - [[the-equitable-maxim-of-clean-hands]]
+  - [[the-equitable-principle-of-set-off]]
+  - [[the-implied-duty-of-fitness-for-purpose]]
+  - [[the-law-of-nuisance-as-applied-to-construction-sites-eg-dust-noise]]
+  - [[the-law-of-trespass-as-applied-to-construction-eg-crane-oversailing]]
+  - [[the-legal-concept-of-force-majeure]]
+  - [[the-legal-status-of-a-condition-precedent]]
+  - [[the-no-loss-defence-in-claims-for-breach]]
+  - [[the-obligation-to-perform-in-a-good-and-workmanlike-manner]]
+  - [[the-officious-bystander-test-for-implied-terms]]
+  - [[the-principle-of-contribution-between-joint-tortfeasors]]
+  - [[the-principles-governing-global-claims]]
+  - [[the-principles-governing-total-cost-claims]]
+  - [[the-principles-of-decennial-liability-primarily-in-civil-law-systems-but-influential]]
+  - [[the-principles-underpinning-collateral-warranties]]
+  - [[the-rule-in-rylands-v-fletcher-strict-liability]]
+  - [[arbitration-precondition-to-litigation]]

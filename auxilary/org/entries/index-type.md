@@ -20,7 +20,7 @@ Documents should look like this (minus comments):
 (escape chars '\\' added to ensure raw text display)
 
 ```markdown
-// file: i.bonsai.md
+// file: i.root.md
 
 - [[bk.how-to-read-a-book]]
   - [[read]]
@@ -34,7 +34,7 @@ Documents should look like this (minus comments):
 The tree may also be broken up into multiple index files:
 
 ```markdown
-// file: i.bonsai.md
+// file: i.root.md
 
 - [[bk.how-to-read-a-book]]
   - [[i.read]]
@@ -53,7 +53,7 @@ The tree may also be broken up into multiple index files:
 Both of the above examples will generate a tree that looks like this:
 
 ```markdown
-i.bonsai
+i.root
 └── bk.how-to-read-a-book
     └── i.read
         └── 4-levels-of-reading
